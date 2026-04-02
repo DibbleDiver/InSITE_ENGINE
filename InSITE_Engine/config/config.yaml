@@ -1,0 +1,3 @@
+input_path: InSITE_Engine/data/raw
+output_path: InSITE_Engine/output
+log_level: INFO
