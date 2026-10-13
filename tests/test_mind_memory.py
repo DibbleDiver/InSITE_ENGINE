@@ -225,7 +225,7 @@ def test_memory_persists_and_second_cycle_sees_only_new_events(tmp_path):
     assert h2["evidence_log"][-1]["excerpts"][0]["tool"] == "get_events"
     assert "0.50 -> " in second.hypothesis_board[0]["trend"] or any("->" in h["trend"] for h in second.hypothesis_board)
     assert os.path.exists(os.path.join(mind2.config.memory_dir, "reports", "cycle_0002.md"))
-    assert open(os.path.join(mind2.config.memory_dir, "reports", "latest.md")).read().startswith("# InSITE Mind report - cycle 2")
+    assert open(os.path.join(mind2.config.memory_dir, "reports", "latest.md")).read().startswith("# MŸND report - cycle 2")
 
 
 def test_offline_cycle_writes_report_and_leaves_fingerprint_untouched(tmp_path):

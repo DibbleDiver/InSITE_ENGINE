@@ -1,4 +1,4 @@
-"""The Mind: perceive -> investigate -> critique -> consolidate, once or in a loop."""
+"""MŸND: the Mind of the InSITE Engine. Perceive -> investigate -> critique -> consolidate, once or in a loop."""
 from __future__ import annotations
 
 import datetime as _dt

@@ -54,7 +54,7 @@ def render_report(ctx: dict) -> str:
     cost_usd, total_cost_usd, model, steps, served_by_fallback, next_focus, sent_messages, stop_note,
     hypothesis_changes."""
     evidence = ctx.get("evidence") or {}
-    lines = [f"# InSITE Mind report - cycle {ctx['cycle']} ({ctx['status']})", ""]
+    lines = [f"# MŸND report - cycle {ctx['cycle']} ({ctx['status']})", ""]
     lines.append(f"Generated {ctx.get('generated_at', '')}; model {ctx.get('model', '')}; "
                  f"{ctx.get('steps', 0)} model turns; cost ${ctx.get('cost_usd', 0.0):.2f}"
                  + (f"; pipeline output of {ctx['pipeline_generated_at']}" if ctx.get("pipeline_generated_at") else ""))
