@@ -1,3 +1,35 @@
 input_path: InSITE_Engine/data/raw
 output_path: InSITE_Engine/output
 log_level: INFO
+
+# Deterministic signal processing (ingest -> clean -> normalise -> features -> events -> states)
+pipeline:
+  assume_timezone: UTC        # timezone for timestamps that carry none
+  rolling_window: 12          # samples in the rolling mean/std features
+  robust_window: 48           # samples in the rolling median/MAD robust z-score
+  spike_z: 4.0                # |robust z| above this is a spike
+  step_window: 24             # samples either side when testing for a step change
+  step_z: 3.0                 # mean shift (in pooled std units) that counts as a step change
+  flatline_min_samples: 12    # identical consecutive readings that count as a flatline
+  gap_factor: 3.0             # interval > gap_factor x median interval is a gap
+  min_gap_minutes: 30         # gaps shorter than this are ignored
+
+# The Mind: autonomous reasoning layer powered by Claude Fable 5.1
+mind:
+  model: claude-fable-5-1
+  effort: high                # low | medium | high | xhigh | max
+  critic_model: claude-fable-5-1
+  critic_effort: medium
+  max_tokens: 64000           # per response (thinking + output); requests are streamed
+  max_steps: 40               # model turns per cycle
+  budget_usd_per_cycle: 5.00  # cycle wraps up at 80% and stops at 100% of this
+  budget_usd_total: null      # optional cap across an autonomous run
+  thinking_display: summarized  # summarized | omitted
+  fallbacks: default          # server-side refusal fallback ("default" routing); null disables
+  eager_input_streaming: true # set false if a proxy in front of the API rejects the field
+  memory_dir: InSITE_Engine/output/mind
+  loop_interval_seconds: 900  # autonomous mode: pause between cycles
+  max_idle_cycles: 2          # cycles to keep thinking without new data before waiting for data
+  pricing_usd_per_mtok:       # used for budget tracking
+    claude-fable-5-1: {input: 10.00, output: 50.00, cache_write: 12.50, cache_read: 0.25}
+    claude-opus-5-5: {input: 4.00, output: 20.00, cache_write: 5.00, cache_read: 0.20}

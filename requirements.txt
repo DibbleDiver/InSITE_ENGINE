@@ -1,0 +1,6 @@
+pandas>=2.2
+numpy>=1.26
+PyYAML>=6.0
+anthropic>=1.13.0
+jsonschema>=4.21
+pytest>=8.0
